@@ -20,7 +20,6 @@ namespace Isaac.FileStorage
 
             DirectoryPath = di.FullName;
         }
-
         public void Insert<T>(string key, T obj) 
         {
             var serialized = JsonConvert.SerializeObject(obj);
@@ -40,7 +39,6 @@ namespace Isaac.FileStorage
                             .Select(o => new FileInfo(o).Name
                                                         .Replace(".jk", ""));
         }
-
         private string getFileName(string key)
         {
             return Path.Combine(DirectoryPath, $"{key}.jk");

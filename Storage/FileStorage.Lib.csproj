@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>Isaac.FileStorage.Lib</AssemblyName>
+    <RootNamespace>Isaac.FileStorage.Lib</RootNamespace>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageId>Isaac.FileStorage</PackageId>
+    <Authors>Isaac Candido</Authors>
+    <Product>File Storage</Product>
+    <Version>0.2</Version>
+    <PackageLicenseFile>license</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/a6576171/JSONStorage</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/a6576171/JSONStorage</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>Storage</PackageTags>
+    <NeutralLanguage />
+    <PackageReleaseNotes>pnFirst</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\license">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

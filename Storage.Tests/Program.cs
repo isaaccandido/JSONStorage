@@ -1,27 +1,25 @@
 ﻿using Isaac.FileStorage;
 using System;
 
-namespace Storage.Tests
+namespace Isaac.Storage.Tests
 {
     class Program
     {
         static void Main(string[] args)
         {
-            var w = new Core("C:\\sblevers\\");
+            var storage = new Core("C:\\sblevers\\");
 
             test t = new()
             {
                 CPF = "0",
-                Nome = "Joaquim"
+                Nome = "Isaac"
             };
 
-            w.Insert("321", t);
+            storage.Insert("321", t);
 
-            var specifickey = w.Get<test>("321");
+            var specifickey = storage.Get<test>("321");
 
-            var keys = w.GetAllKeys().
-
-            keys = keys;
+            var keys = storage.GetAllKeys();
         }
     }
 

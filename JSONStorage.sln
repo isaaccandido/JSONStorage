@@ -3,9 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Storage.Lib", "Storage\Storage.Lib.csproj", "{5BC60151-09B5-42EB-9607-61AD68C45179}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileStorage.Lib", "Storage\FileStorage.Lib.csproj", "{5BC60151-09B5-42EB-9607-61AD68C45179}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storage.Tests", "Storage.Tests\Storage.Tests.csproj", "{1626C162-CF46-46B8-A0CD-0339C9896B47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileStorage.Tests", "Storage.Tests\FileStorage.Tests.csproj", "{1626C162-CF46-46B8-A0CD-0339C9896B47}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{AF2CE771-07E7-48AF-884A-B56AE35E6DAC}"
+	ProjectSection(SolutionItems) = preProject
+		NugetDocs.md = NugetDocs.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

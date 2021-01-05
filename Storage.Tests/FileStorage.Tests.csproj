@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Storage\Storage.Lib.csproj" />
+    <ProjectReference Include="..\Storage\FileStorage.Lib.csproj" />
   </ItemGroup>
 
 </Project>
