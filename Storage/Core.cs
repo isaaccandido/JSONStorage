@@ -22,6 +22,8 @@ namespace Isaac.FileStorage
         }
         public void Insert<T>(string key, T obj) 
         {
+            if (string.IsNullOrEmpty(key)) throw new ArgumentException("'Key' parameter cannot be empty.");
+
             var serialized = JsonConvert.SerializeObject(obj);
             var filename = getFileName(key);
 
