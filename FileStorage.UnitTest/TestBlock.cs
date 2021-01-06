@@ -11,13 +11,14 @@ namespace FileStorage.UnitTest
         
         public TestBlock()
         {
-            db = new Core("unitTestTests");
+            var newPath = "Tests_" + Guid.NewGuid().ToString();
+
+            db = new Core(newPath);
         }
 
         public void Dispose()
         {
             Directory.Delete(db.DirectoryPath, true);
-
         }
     }
 }
