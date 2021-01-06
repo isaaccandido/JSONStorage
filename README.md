@@ -1,6 +1,6 @@
 # Simple file storage solution
 
-Is this compilable ? [![.NET](https://github.com/a6576171/JSONStorage/workflows/.NET/badge.svg)](https://github.com/a6576171/JSONStorage)
+Is this compilable? [![.NET](https://github.com/a6576171/JSONStorage/workflows/.NET/badge.svg)](https://github.com/a6576171/JSONStorage)
 
 This package allows for data storage using serialization. It utilises a JSON-based serialisation to record data in .jk files (it's a json and it has a key, .jk is not a joke).
 
