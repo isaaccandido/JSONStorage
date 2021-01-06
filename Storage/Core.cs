@@ -36,8 +36,7 @@ namespace Isaac.FileStorage
         public IEnumerable<string> GetAllKeys()
         {
             return Directory.GetFiles(DirectoryPath, "*.jk")
-                            .Select(o => new FileInfo(o).Name
-                                                        .Replace(".jk", ""));
+                            .Select(o => new FileInfo(o).Name[..^3]);
         }
         private string getFileName(string key)
         {
