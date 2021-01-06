@@ -15,7 +15,6 @@ namespace FileStorage.UnitTest
         [InlineData("1")]
         [InlineData("jfk.us.jk")]
         [InlineData("jfk.us.jk.")]
-        [InlineData("potato~~")]
         [InlineData("jfk,us,jk,")]
         public static void Get_KeyExists(string key)
         {

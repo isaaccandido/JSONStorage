@@ -1,7 +1,4 @@
-using Isaac.FileStorage;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Xunit;
 
@@ -12,9 +9,8 @@ namespace FileStorage.UnitTest
         [Theory]
         [InlineData("jfk.us.")]
         [InlineData("jfk.us.jk.")]
-        [InlineData("potato~~")]
         [InlineData("jfk,us,jk,")]
-        public void GetAllKeys_HasOneKey(string input)
+        public void GetAllKeys_AirportBug(string input)
         {
             using (var block = new TestBlock())
             {
@@ -29,7 +25,7 @@ namespace FileStorage.UnitTest
                 var allKeys = block.db.GetAllKeys()
                                       .ToArray();
 
-                Assert.True(allKeys.Count() == 1);
+                Assert.Single(allKeys);
             }
         }
 
@@ -47,7 +43,7 @@ namespace FileStorage.UnitTest
 
             for (int i = 0; i < amount; i++)
             {
-                var strCode = i.ToString().PadLeft(3, '0');
+                var strCode = i.ToString("000");
                 var thisName = $"{baseName},.,.,.;{i}";
 
                 lstTests.Add(new TestClass()
@@ -62,10 +58,9 @@ namespace FileStorage.UnitTest
                 block.db.Insert(t.Name, t.Code);
             }
 
-            var allKeys = block.db.GetAllKeys()
-                                  .ToArray();
+            var allKeys = block.db.GetAllKeys().ToArray();
 
-            Assert.True(allKeys.Count() == amount);
+            Assert.Equal(amount, allKeys.Length);
         }
 
         [Fact]
@@ -75,7 +70,7 @@ namespace FileStorage.UnitTest
             // get all keys when there's none
             var allKeys = block.db.GetAllKeys()
                                   .ToArray();
-            Assert.True(allKeys.Count() == 0);
+            Assert.Empty(allKeys);
         }
     }
 }
