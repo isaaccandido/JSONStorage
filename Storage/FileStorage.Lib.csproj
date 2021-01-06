@@ -10,14 +10,16 @@
     <PackageId>Isaac.FileStorage</PackageId>
     <Authors>Isaac Candido</Authors>
     <Product>File Storage</Product>
-    <Version>0.2.4</Version>
+    <Version>0.2.5</Version>
     <PackageLicenseFile>license</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/a6576171/JSONStorage</PackageProjectUrl>
     <RepositoryUrl>https://github.com/a6576171/JSONStorage</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>Storage</PackageTags>
     <NeutralLanguage />
-    <PackageReleaseNotes>Fixed error when key has .jk in name (like "test.jk.file001,jk"); original code used to replace .jk into nothing (in our example, "test.jk.file001.jk" would become "test.file001") because replacing .jk string would replace all occurrences within the name string.</PackageReleaseNotes>
+    <PackageReleaseNotes>- Updated UnitTests and test cases
+- Fixed parallel test erros
+- Added data consistency checks (nulls and white spaces for keys).</PackageReleaseNotes>
     <Description>Simple file storage solution
 
 This package allows for data storage using serialization. It utilises a JSON-based serialisation to record data in .jk files (it's a json and it has a key, .jk is not a joke).
