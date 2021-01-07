@@ -1,7 +1,8 @@
 # Simple file storage solution
 
-Is this compilable? [![.NET](https://github.com/a6576171/JSONStorage/workflows/.NET/badge.svg)](https://github.com/a6576171/JSONStorage)
-[![NuGet](https://buildstats.info/nuget/Isaac.FileStorage)](https://www.nuget.org/packages/Isaac.FileStorage/)
+Is this compilable? => [![.NET](https://github.com/a6576171/JSONStorage/workflows/.NET/badge.svg)](https://github.com/a6576171/JSONStorage)
+
+NuGet Package status => [![NuGet](https://buildstats.info/nuget/Isaac.FileStorage)](https://www.nuget.org/packages/Isaac.FileStorage/)
 
 This package allows for data storage using serialization. It utilises a JSON-based serialisation to record data in .jk files (it's a json and it has a key, .jk is not a joke).
 
