@@ -8,7 +8,14 @@ namespace Isaac.Storage.Tests
     {
         static void Main(string[] args)
         {
-            ExemploDoRafael();
+            //ExemploDoRafael();
+
+            var str = new Core("test");
+            str.Insert("test", new Airports[]
+            {
+                new Airports() { Name = "test"},
+                new Airports() { Name = "the other test"}
+            });
 
             //var storage = new Core("C:\\sblevers\\");
 
