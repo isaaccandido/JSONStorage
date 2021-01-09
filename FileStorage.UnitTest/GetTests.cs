@@ -40,7 +40,7 @@ namespace FileStorage.UnitTest
 
             string key = "badFile";
 
-            File.WriteAllText($"{Path.Combine(block.db.DirectoryPath,key)}.jk", "bad_content");
+            File.WriteAllText($"{Path.Combine(block.db.DirectoryPath,key)}.j2k", "bad_content");
 
             Exception ex = null;
 
@@ -53,7 +53,7 @@ namespace FileStorage.UnitTest
                 ex = exception;
             }
 
-            string msg = $"Unexpected character encountered while parsing value: b. Path '', line 0, position 0.";
+            string msg = $"Unexpected end when reading JSON. Path ''.";
 
             Assert.Equal(msg, ex.Message);
         }
@@ -79,7 +79,7 @@ namespace FileStorage.UnitTest
 
             string path = new DirectoryInfo(Assembly.GetExecutingAssembly().Location).Parent.FullName;
 
-            string msg = $"Could not find file '{Path.Combine(path, block.db.DirectoryPath, key)}.jk'.";
+            string msg = $"Could not find file '{Path.Combine(path, block.db.DirectoryPath, key)}.j2k'.";
 
             Assert.Equal(msg, ex.Message);
         }

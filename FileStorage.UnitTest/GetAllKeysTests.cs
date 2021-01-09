@@ -55,7 +55,7 @@ namespace FileStorage.UnitTest
 
             foreach(var t in lstTests)
             {
-                block.db.Insert(t.Name, t.Code);
+                block.db.Insert(t.Name, t);
             }
 
             var allKeys = block.db.GetAllKeys().ToArray();
