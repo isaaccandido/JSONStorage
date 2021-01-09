@@ -86,7 +86,7 @@ namespace Isaac.FileStorage
         {
             // I'm not sure I can delete stuff. I think I can;
             // will leave this here so I remember to test it all
-            bool deleteTempFiles = false;
+            bool deleteOriginalFile = true;
 
             // jk (json) to j2k (bson) converter, for backwards compatibility
 
@@ -109,7 +109,10 @@ namespace Isaac.FileStorage
                     var bson = bsonGenerator(jkObj);
 
                     File.WriteAllBytes(j2kFile, bson);
-                    if (deleteTempFiles) File.Delete(tmpFile);
+                    if (deleteOriginalFile)
+                    {
+                        File.Delete(jkFile);
+                    }
                 }
             }
             // If it doesn't work, well, just roll with it. 
