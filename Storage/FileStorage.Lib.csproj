@@ -10,15 +10,14 @@
     <PackageId>Isaac.FileStorage</PackageId>
     <Authors>Isaac Candido</Authors>
     <Product>File Storage</Product>
-    <Version>0.3.1</Version>
+    <Version>0.3.2</Version>
     <PackageLicenseFile>license</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/a6576171/JSONStorage</PackageProjectUrl>
     <RepositoryUrl>https://github.com/a6576171/JSONStorage</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>Storage</PackageTags>
     <NeutralLanguage />
-    <PackageReleaseNotes>- Now this solution utilises BSON! It's a binary JSON. Nice, huh? It's faster to serialise/deserialise. Also, smaller! The way I see it, it's a win-win. 
-- Last, but not least: for those who already use 0.2.x versions of this solution, fear not! I took my sweet time to automatically convert your JSON files (.jk) into BSON binary files (.j2k) upon booting up on a given directory. Additionally, it'll keep a *.legacy* file in there, containing old .jk files ("[fileName.jk.legacy]"). No files need to be deleted.</PackageReleaseNotes>
+    <PackageReleaseNotes>- Added zipping feature for legacy files. Now, no legacy file is created; instead, a Zip file will be created containing all legacy files.</PackageReleaseNotes>
     <Description>Simple JSON-based file storage solution.
 
 This package allows for data storage using serialization. It utilises BSON (binary JSON) serialisation to record data in .j2k files. It used to be a joke, now it's two, and a binary one.</Description>
