@@ -17,6 +17,6 @@ From version 0.3 and above, this solution is BSON-based (binary JSON). Nice, huh
 
 Therefore, from now on, files will be saved as .j2k (it used to be *a* joke, now it's two). - The file extension now is .j2k. 
 
-Last, but not least: for those who already use 0.2.x versions of this solution, fear not! I took my sweet time to automatically convert your JSON files (.jk) into BSON binary files (.j2k) upon booting up on a given directory. Additionally, it'll keep a *.legacy* file in there, containing old .jk files ("*[fileName.jk.legacy]*"). No files need to be deleted.
+Last, but not least: for those who already use 0.2.x versions of this solution, fear not! I took my sweet time to automatically convert your JSON files (.jk) into BSON binary files (.j2k) upon booting up on a given directory. Additionally, it'll keep a Zip file in there, containing old .jk files. No files need to be deleted.
 
 I know, I know, it's ok. You're welcome. 
