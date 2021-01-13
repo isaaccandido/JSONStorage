@@ -74,6 +74,22 @@ namespace Isaac.FileStorage
                             .Select(o => new FileInfo(o).Name[..^4]);
         }
 
+        /// <summary>
+        /// Removes an entry by key.
+        /// </summary>
+        /// <param name="key">The key to delete.</param>
+        public void Delete(string key)
+        {
+            if (string.IsNullOrEmpty(key)) throw new ArgumentException("Key cannot be empty => Isaac.FileStorage.Delete(string key).");
+
+            var fileName = Path.Combine(DirectoryPath, $"{key}.j2k");
+
+            if(File.Exists(fileName))
+            {
+                File.Delete(fileName);
+            }
+        }
+
         private string getFileName(string key)
         {
             return Path.Combine(DirectoryPath, $"{key}{J2KFileExtension}");
