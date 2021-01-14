@@ -84,10 +84,9 @@ namespace Isaac.FileStorage
 
             var fileName = Path.Combine(DirectoryPath, $"{key}.j2k");
 
-            if(File.Exists(fileName))
-            {
-                File.Delete(fileName);
-            }
+            if (!File.Exists(fileName)) throw new KeyNotFoundException("teste");
+            
+            File.Delete(fileName);
         }
 
         private string getFileName(string key)
@@ -177,6 +176,17 @@ namespace Isaac.FileStorage
                 Directory.Delete(tmpDir, true);
             }
             catch { return; }
+        }
+    }
+
+    public class KeyNotFoundException : Exception
+    {
+        public override string Message { get; }
+
+        public KeyNotFoundException() : base() { Message = "Key was not found."; }
+        public KeyNotFoundException(string message) 
+        {
+            this.Message = message;
         }
     }
 }
