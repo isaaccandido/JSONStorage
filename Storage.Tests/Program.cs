@@ -65,6 +65,9 @@ namespace Isaac.Storage.Tests
             var ks = str.GetAllKeys();
             cpfl = cpfl;
 
+            str.Delete(t.Name);
+
+            str = str;
             //var storage = new Core("C:\\sblevers\\");
 
             ////test t = new()

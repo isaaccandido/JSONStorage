@@ -9,6 +9,7 @@ using System.Text;
 
 namespace Isaac.FileStorage
 {
+
     public class Core
     {
         public string DirectoryPath { get; }
@@ -42,7 +43,7 @@ namespace Isaac.FileStorage
         /// <param name="obj">The instantiated class containing data.</param>
         public void Insert<T>(string key, T obj)
         {
-            if (string.IsNullOrEmpty(key)) throw new ArgumentException("Key cannot be empty => Isaac.FileStorage.Insert<T>(string key, T obj).");
+            if (string.IsNullOrEmpty(key)) throw new EmptyKeyException();
 
             var bson = bsonGenerator(obj);
             File.WriteAllBytes(getFileName(key), bson);
@@ -56,7 +57,7 @@ namespace Isaac.FileStorage
         /// <returns>Returns a T object with deserialized data.</returns>
         public T Get<T>(string key)
         {
-            if (string.IsNullOrEmpty(key)) throw new ArgumentException("Key cannot be empty => Isaac.FileStorage.Get<T>(string key).");
+            if (string.IsNullOrEmpty(key)) throw new EmptyKeyException();
 
             using FileStream fs = File.OpenRead(getFileName(key));
             using var reader = new BsonDataReader(fs);
@@ -72,6 +73,21 @@ namespace Isaac.FileStorage
         {
             return Directory.GetFiles(DirectoryPath, $"*{J2KFileExtension}")
                             .Select(o => new FileInfo(o).Name[..^4]);
+        }
+
+        /// <summary>
+        /// Removes an entry by key.
+        /// </summary>
+        /// <param name="key">The key to delete.</param>
+        public void Delete(string key)
+        {
+            if (string.IsNullOrEmpty(key)) throw new EmptyKeyException();
+
+            var fileName = Path.Combine(DirectoryPath, $"{key}.j2k");
+
+            if (!File.Exists(fileName)) throw new KeyNotFoundException();
+            
+            File.Delete(fileName);
         }
 
         private string getFileName(string key)
@@ -163,4 +179,6 @@ namespace Isaac.FileStorage
             catch { return; }
         }
     }
+
+    
 }

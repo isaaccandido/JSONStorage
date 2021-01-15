@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Isaac.FileStorage;
+using System;
 using Xunit;
 
 namespace FileStorage.UnitTest
@@ -28,7 +29,7 @@ namespace FileStorage.UnitTest
         {
             using var block = new TestBlock();
 
-            Assert.Throws<ArgumentException>(() =>
+            Assert.Throws<EmptyKeyException>(() =>
             {
                 block.db.Insert(string.Empty, new TestClass()
                 {
@@ -42,7 +43,7 @@ namespace FileStorage.UnitTest
         {
             using var block = new TestBlock();
 
-            Assert.Throws<ArgumentException>(() =>
+            Assert.Throws<EmptyKeyException>(() =>
             {
                 block.db.Insert(null, new TestClass()
                 {
