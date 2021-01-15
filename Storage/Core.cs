@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Text;
 
 namespace Isaac.FileStorage
 {
@@ -14,6 +13,7 @@ namespace Isaac.FileStorage
     {
         public string DirectoryPath { get; }
         const string J2KFileExtension = ".j2k";
+        const int ExtensionLen = 4;
         const string TempFileExtension = ".legacy";
         const string ZipName = "legacyFiles.zip";
 
@@ -72,7 +72,7 @@ namespace Isaac.FileStorage
         public IEnumerable<string> GetAllKeys()
         {
             return Directory.GetFiles(DirectoryPath, $"*{J2KFileExtension}")
-                            .Select(o => new FileInfo(o).Name[..^4]);
+                            .Select(o => new FileInfo(o).Name[..^ExtensionLen]);
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Isaac.FileStorage
             var fileName = Path.Combine(DirectoryPath, $"{key}.j2k");
 
             if (!File.Exists(fileName)) throw new KeyNotFoundException();
-            
+
             File.Delete(fileName);
         }
 
@@ -96,7 +96,8 @@ namespace Isaac.FileStorage
         }
         private byte[] bsonGenerator<T>(T obj)
         {
-            if (obj is null) throw new ArgumentException("Null T object cannot be serialised => Isaac.FileStorage.bsonGenerator(T obj)");
+            // I think it's okay to write null file on disk.
+            if (obj is null) return new byte[0];
 
             using var ms = new MemoryStream();
             using var writer = new BsonDataWriter(ms);
@@ -142,7 +143,6 @@ namespace Isaac.FileStorage
                 catch { return; }
             }
         }
-
         private void archiveLegacyFiles()
         {
             // Instead of just spamming files into database, after JSON to BSON conversion,
@@ -179,6 +179,4 @@ namespace Isaac.FileStorage
             catch { return; }
         }
     }
-
-    
 }
