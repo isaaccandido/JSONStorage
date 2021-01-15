@@ -9,6 +9,7 @@ It is a generics-based solution that receives a key that will be used as file na
 1. *void Insert(string key, T obj):* Allows insertion of a new record. The 'string key' parameter will be used as file name and T object is the data class.
 2. *T Get<T>(string key)*: Searches a file by name and, if possible, will deserialise to a given T object.
 3. *IEnumerable<string> GetAllKeys()*: This method searches for all .jk files and returns all entries.
+4. *void Delete()*: Deletes a given key on record.
 
 ---
 
