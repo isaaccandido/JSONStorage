@@ -10,18 +10,23 @@
     <PackageId>Isaac.FileStorage</PackageId>
     <Authors>Isaac Candido</Authors>
     <Product>File Storage</Product>
-    <Version>0.3.3</Version>
+    <Version>0.3.4</Version>
     <PackageLicenseFile>license</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/a6576171/JSONStorage</PackageProjectUrl>
     <RepositoryUrl>https://github.com/a6576171/JSONStorage</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>Storage</PackageTags>
     <NeutralLanguage />
-    <PackageReleaseNotes>- Added delete key function</PackageReleaseNotes>
+    <PackageReleaseNotes>- Added null object support</PackageReleaseNotes>
     <Description>Simple JSON-based file storage solution.
 
 This package allows for data storage using serialization. It utilises BSON (binary JSON) serialisation to record data in .j2k files. It used to be a joke, now it's two, and a binary one.</Description>
     <PackageIcon>filéManager.png</PackageIcon>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>embedded</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup>

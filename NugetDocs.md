@@ -1,6 +1,6 @@
 # **Simple file storage solution**
 
-This package allows for data storage using serialization. It utilises a binary JSON-based serialisation to record data in .j2k files (it's a json and it has a key, .j2k is not a joke).
+This package allows for data storage using serialisation. It utilises a binary JSON-based serialisation to record data in .j2k files (it's a json and it has a key, .j2k is not a joke).
 
 
 It is a generics-based solution that receives a key that will be used as file name and an <T> object. It utilises the input class structure, so no manual intervention is needed - it'll work with any given object.
