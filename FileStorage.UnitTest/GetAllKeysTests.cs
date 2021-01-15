@@ -12,21 +12,19 @@ namespace FileStorage.UnitTest
         [InlineData("jfk,us,jk,")]
         public void GetAllKeys_AirportBug(string input)
         {
-            using (var block = new TestBlock())
+            using var block = new TestBlock();
+            var test = new TestClass()
             {
-                var test = new TestClass()
-                {
-                    Name = "John",
-                    Code = "C001"
-                };
+                Name = "John",
+                Code = "C001"
+            };
 
-                block.db.Insert(input, test);
+            block.db.Insert(input, test);
 
-                var allKeys = block.db.GetAllKeys()
-                                      .ToArray();
+            var allKeys = block.db.GetAllKeys()
+                                  .ToArray();
 
-                Assert.Single(allKeys);
-            }
+            Assert.Single(allKeys);
         }
 
         [Theory]
@@ -53,7 +51,7 @@ namespace FileStorage.UnitTest
                 });
             }
 
-            foreach(var t in lstTests)
+            foreach (var t in lstTests)
             {
                 block.db.Insert(t.Name, t);
             }
