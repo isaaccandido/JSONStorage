@@ -1,9 +1,4 @@
 ﻿using Isaac.FileStorage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace FileStorage.UnitTest
@@ -14,8 +9,25 @@ namespace FileStorage.UnitTest
         public void DeleteKey_KeyNotFound()
         {
             Core c = new Core("Test");
+            string msg = string.Empty;
 
-            c.Delete("inexistent_file");
+            try { c.Delete("inexistent_file"); }
+            catch (System.Exception ex) { msg = ex.Message;}
+
+            Assert.Equal("Key was not found.", msg);
         }
+
+        [Fact]
+        public void DeleteKey_EmptyKey()
+        {
+            Core c = new Core("Test");
+            string msg = string.Empty;
+
+            try { c.Delete(""); }
+            catch (System.Exception ex) { msg = ex.Message; }
+
+            Assert.Equal("Key cannot be empty.", msg);
+        }
+
     }
 }
