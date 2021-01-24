@@ -64,33 +64,6 @@ namespace Isaac.Storage.Tests
 
             var ks = str.GetAllKeys();
             cpfl = cpfl;
-<<<<<<< Updated upstream
-
-            str.Delete(t.Name);
-
-            str = str;
-            //var storage = new Core("C:\\sblevers\\");
-
-            ////test t = new()
-            ////{
-            ////    CPF = "0",
-            ////    Nome = "Isaac"
-            ////};
-
-            ////storage.Insert("321", t);
-
-            ////var specifickey = storage.Get<test>("321");
-
-            ////var keys = storage.GetAllKeys();
-
-
-            //// Insert known data
-            //var jfk = new test() { Name = "John F. Kennedy" };
-            //storage.Insert<test>("us.ny.jk", jfk);
-            //// retrieve all data
-            //var all = storage.GetAllKeys().Select(k => storage.Get<test>(k));
-=======
->>>>>>> Stashed changes
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using Isaac.FileStorage;
-using Xunit;
+﻿using Xunit;
+using Isaac.FileStorage;
 
 namespace FileStorage.UnitTest
 {
@@ -8,7 +8,7 @@ namespace FileStorage.UnitTest
         [Fact]
         public void DeleteKey_KeyNotFound()
         {
-            Core c = new Core("Test");
+            FileStorageEngine c = new FileStorageEngine("Test");
             string msg = string.Empty;
 
             try { c.Delete("inexistent_file"); }
@@ -20,7 +20,7 @@ namespace FileStorage.UnitTest
         [Fact]
         public void DeleteKey_EmptyKey()
         {
-            Core c = new Core("Test");
+            FileStorageEngine c = new FileStorageEngine("Test");
             string msg = string.Empty;
 
             try { c.Delete(""); }
