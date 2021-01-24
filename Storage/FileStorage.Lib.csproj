@@ -10,18 +10,27 @@
     <PackageId>Isaac.FileStorage</PackageId>
     <Authors>Isaac Candido</Authors>
     <Product>File Storage</Product>
+<<<<<<< Updated upstream
     <Version>0.3.4</Version>
+=======
+    <Version>1.0.0.0</Version>
+>>>>>>> Stashed changes
     <PackageLicenseFile>license</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/a6576171/JSONStorage</PackageProjectUrl>
     <RepositoryUrl>https://github.com/a6576171/JSONStorage</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>Storage</PackageTags>
     <NeutralLanguage />
+<<<<<<< Updated upstream
     <PackageReleaseNotes>- Added null object support</PackageReleaseNotes>
+=======
+    <PackageReleaseNotes>Basically, version 1.0 is a well-tested version (both in daily usage and unit tests) and removed some unnecessary stuff. The only major change from version 0.x is that I changed the class name from Core to FileStorageEngine to be more intuitive.</PackageReleaseNotes>
+>>>>>>> Stashed changes
     <Description>Simple JSON-based file storage solution.
 
 This package allows for data storage using serialization. It utilises BSON (binary JSON) serialisation to record data in .j2k files. It used to be a joke, now it's two, and a binary one.</Description>
     <PackageIcon>filéManager.png</PackageIcon>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

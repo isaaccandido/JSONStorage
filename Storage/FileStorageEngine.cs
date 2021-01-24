@@ -8,8 +8,12 @@ using System.Linq;
 
 namespace Isaac.FileStorage
 {
+<<<<<<< Updated upstream:Storage/Core.cs
 
     public class Core
+=======
+    public class FileStorageEngine
+>>>>>>> Stashed changes:Storage/FileStorageEngine.cs
     {
         public string DirectoryPath { get; }
         const string J2KFileExtension = ".j2k";
@@ -17,7 +21,7 @@ namespace Isaac.FileStorage
         const string TempFileExtension = ".legacy";
         const string ZipName = "legacyFiles.zip";
 
-        public Core(string DirPath)
+        public FileStorageEngine(string DirPath)
         {
             bool zipLegacyFiles = true;
 

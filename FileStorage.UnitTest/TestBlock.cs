@@ -1,19 +1,18 @@
 ﻿using Isaac.FileStorage;
 using System;
 using System.IO;
-using System.Threading;
 
 namespace FileStorage.UnitTest
 {
     public class TestBlock : IDisposable
     {
-        public Core db { get; }
+        public FileStorageEngine db { get; }
         
         public TestBlock()
         {
             var newPath = "Tests_" + Guid.NewGuid().ToString();
 
-            db = new Core(newPath);
+            db = new FileStorageEngine(newPath);
         }
 
         public void Dispose()
