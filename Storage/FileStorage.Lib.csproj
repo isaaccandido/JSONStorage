@@ -11,7 +11,7 @@
     <Authors>Isaac Candido</Authors>
     <Product>File Storage</Product>
 
-    <Version>1.5.0.0</Version>
+    <Version>1.6.0.0</Version>
 
     <PackageLicenseFile>license</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/a6576171/JSONStorage</PackageProjectUrl>
@@ -24,7 +24,7 @@
 
 This package allows for data storage using serialization. It utilises BSON (binary JSON) serialisation to record data in .j2k files. It used to be a joke, now it's two, and a binary one.</Description>
     <PackageIcon>filéManager.png</PackageIcon>
-    <AssemblyVersion>1.5.0.0</AssemblyVersion>
+    <AssemblyVersion>1.6.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

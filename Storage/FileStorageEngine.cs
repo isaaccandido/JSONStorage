@@ -58,10 +58,11 @@ namespace Isaac.FileStorage
         {
             if (string.IsNullOrEmpty(key)) throw new EmptyKeyException();
 
+            using FileStream fs = File.OpenRead(getFileName(key));
+            using var reader = new BsonDataReader(fs);
+
             try
             {
-                using FileStream fs = File.OpenRead(getFileName(key));
-                using var reader = new BsonDataReader(fs);
                 return new JsonSerializer().Deserialize<T>(reader);
             }
             catch
