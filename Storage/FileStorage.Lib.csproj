@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <AssemblyName>Isaac.FileStorage.Lib</AssemblyName>
     <RootNamespace>Isaac.FileStorage.Lib</RootNamespace>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>

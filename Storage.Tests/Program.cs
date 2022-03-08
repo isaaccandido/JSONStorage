@@ -66,8 +66,6 @@ namespace Isaac.Storage.Tests
             var ks = str.GetAllKeys().First();
 
             var data = str.Get<Transaction>(ks);
-
-            cpfl = cpfl;
         }
     }
 }

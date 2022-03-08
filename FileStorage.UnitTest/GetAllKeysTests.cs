@@ -37,8 +37,6 @@ namespace FileStorage.UnitTest
 
             List<TestClass> lstTests = new();
 
-            int code = 0;
-
             for (int i = 0; i < amount; i++)
             {
                 var strCode = i.ToString("000");
