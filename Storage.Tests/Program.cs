@@ -1,5 +1,6 @@
 ﻿using Isaac.FileStorage;
 using System;
+using System.Linq;
 
 namespace Isaac.Storage.Tests
 {
@@ -62,7 +63,10 @@ namespace Isaac.Storage.Tests
 
             var cpfl = str.Get<Transaction>(t.Name);
 
-            var ks = str.GetAllKeys();
+            var ks = str.GetAllKeys().First();
+
+            var data = str.Get<Transaction>(ks);
+
             cpfl = cpfl;
         }
     }
