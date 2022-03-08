@@ -11,18 +11,18 @@ namespace Isaac.FileStorage
     public class FileStorageEngine
     {
         public string DirectoryPath { get; }
+
         const string J2KFileExtension = ".j2k";
-        const int ExtensionLen = 4;
         const string TempFileExtension = ".legacy";
         const string ZipName = "legacyFiles.zip";
 
-        public FileStorageEngine(string DirPath)
+        public FileStorageEngine(string dirPath)
         {
             bool zipLegacyFiles = true;
 
-            if (DirPath == null) throw new ArgumentNullException(nameof(DirPath));
+            if (dirPath == null) throw new ArgumentNullException(nameof(dirPath));
 
-            var di = new DirectoryInfo(DirPath);
+            var di = new DirectoryInfo(dirPath);
 
             if (!di.Exists) di.Create();
 
@@ -58,10 +58,20 @@ namespace Isaac.FileStorage
         {
             if (string.IsNullOrEmpty(key)) throw new EmptyKeyException();
 
-            using FileStream fs = File.OpenRead(getFileName(key));
-            using var reader = new BsonDataReader(fs);
-            JsonSerializer serializer = new JsonSerializer();
-            return serializer.Deserialize<T>(reader);
+            try
+            {
+                using FileStream fs = File.OpenRead(getFileName(key));
+                using var reader = new BsonDataReader(fs);
+                return new JsonSerializer().Deserialize<T>(reader);
+            }
+            catch
+            {
+                throw new
+                    InvalidOperationException($"Cannot get data content from file of key '{key}'. " +
+                    "This happened because either the file is unreadable or the generic type mismatches. " +
+                    $"The current destination type is '{typeof(T)}' but I'm unable to determine the actual type. " +
+                    "Try verifying the type you are trying to recover data to and try again.");
+            }
         }
 
         /// <summary>
@@ -71,7 +81,7 @@ namespace Isaac.FileStorage
         public IEnumerable<string> GetAllKeys()
         {
             return Directory.GetFiles(DirectoryPath, $"*{J2KFileExtension}")
-                            .Select(o => new FileInfo(o).Name[..^ExtensionLen]);
+                            .Select(item => new FileInfo(item).Name[..^J2KFileExtension.Length]);
         }
 
         /// <summary>
