@@ -6,6 +6,6 @@ namespace Isaac.FileStorage
     {
         public override string Message { get; }
         public KeyNotFoundException() : base() => Message = "Key was not found."; 
-        public KeyNotFoundException(string Message) => this.Message = Message;
+        public KeyNotFoundException(string message) => this.Message = message;
     }
 }

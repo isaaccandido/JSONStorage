@@ -6,6 +6,6 @@ namespace Isaac.FileStorage
     {
         public override string Message { get; }
         public EmptyKeyException() : base() => Message = "Key cannot be empty.";
-        public EmptyKeyException(string Message) => this.Message = Message;
+        public EmptyKeyException(string message) => this.Message = message;
     }
 }
