@@ -61,6 +61,8 @@ namespace Isaac.Storage.Tests
 
             str.Insert(t.Name, t);
 
+            var wrongConversion = str.Get<string>(t.Name);
+
             var cpfl = str.Get<Transaction>(t.Name);
 
             var ks = str.GetAllKeys().First();
