@@ -11,7 +11,7 @@
     <Authors>Isaac Candido</Authors>
     <Product>File Storage</Product>
 
-    <Version>1.6.0.0</Version>
+    <Version>2.0.0</Version>
 
     <PackageLicenseFile>license</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/a6576171/JSONStorage</PackageProjectUrl>
@@ -19,12 +19,12 @@
     <RepositoryType>Git</RepositoryType>
     <PackageTags>Storage</PackageTags>
     <NeutralLanguage />
-    <PackageReleaseNotes>Basically, version 1.0 is a well-tested version (both in daily usage and unit tests) and removed some unnecessary stuff. The only major change from version 0.x is that I changed the class name from Core to FileStorageEngine to be more intuitive.</PackageReleaseNotes>
-    <Description>Simple JSON-based file storage solution.
+    <PackageReleaseNotes>2.0.0 is a breaking release: the root namespace moved from Isaac.FileStorage to Isaac.FileStorage.Lib (custom exceptions now live under Isaac.FileStorage.Lib.CustomExceptions, and KeyNotFoundException was renamed to StorageKeyNotFoundException to avoid colliding with System.Collections.Generic.KeyNotFoundException). Automatic migration of legacy pre-0.3 .jk files is no longer performed. A path-traversal vulnerability in key handling was fixed (keys can no longer escape the storage directory; invalid keys throw InvalidKeyException). Insert, Get, and Delete now consistently wrap unexpected failures in InvalidOperationException with the original exception preserved as InnerException. Retargeted to net10.0.</PackageReleaseNotes>
+    <Description>Simple file storage solution.
 
 This package allows for data storage using serialization. It utilises BSON (binary JSON) serialisation to record data in .j2k files. It used to be a joke, now it's two, and a binary one.</Description>
     <PackageIcon>filéManager.png</PackageIcon>
-    <AssemblyVersion>1.6.0.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

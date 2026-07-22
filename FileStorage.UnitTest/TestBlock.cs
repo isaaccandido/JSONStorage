@@ -1,23 +1,22 @@
-﻿using Isaac.FileStorage;
-using System;
+﻿using System;
 using System.IO;
+using Isaac.FileStorage.Lib;
 
-namespace FileStorage.UnitTest
+namespace FileStorage.UnitTest;
+
+public class TestBlock : IDisposable
 {
-    public class TestBlock : IDisposable
-    {
-        public FileStorageEngine db { get; }
+    public FileStorageEngine Db { get; }
         
-        public TestBlock()
-        {
-            var newPath = "Tests_" + Guid.NewGuid().ToString();
+    public TestBlock()
+    {
+        var newPath = "Tests_" + Guid.NewGuid();
 
-            db = new FileStorageEngine(newPath);
-        }
+        Db = new FileStorageEngine(newPath);
+    }
 
-        public void Dispose()
-        {
-            Directory.Delete(db.DirectoryPath, true);
-        }
+    public void Dispose()
+    {
+        Directory.Delete(Db.DirectoryPath, true);
     }
 }

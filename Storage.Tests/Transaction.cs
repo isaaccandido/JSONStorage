@@ -1,98 +1,97 @@
 ﻿using System;
 
-namespace Isaac.Storage.Tests
+namespace FileStorage.Tests;
+
+public enum TransactionType
 {
-    public enum TransactionType
+    Income,
+    Expense
+}
+
+public class Transaction
+{
+    public string Name { get; init; }
+    public string Description { get; init; }
+    public int Id { get; init; }
+    public TransactionType TransType { get; init; }
+    public SystemUser ResponsibleUser { get; init; }
+    public decimal OriginalValue { get; init; }
+    public decimal ActualValue { get; init; }
+    public decimal Interest { get; init; }
+    public DateTime InsertionDate { get; init; }
+    public DateTime DueDate { get; init; }
+    public DateTime PaymentDate { get; init; }
+    public DateTime LastUpdate { get; init; }
+    public bool Completed { get; init; }
+    public bool Deleted { get; init; }
+    public Wallet SourceWallet { get; init; }
+    public Supplier Supplier { get; init; }
+    public Category Category { get; init; }
+
+    public override string ToString()
     {
-        Income,
-        Expense
+        return $"Name: {Name} - Value: {OriginalValue}";
     }
+}
 
-    public class Transaction
+public class Category
+{
+    public string Name { get; init; }
+    public int Id { get; init; }
+    public SubCategory SubCategory { get; set; }
+
+    public override string ToString()
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public int ID { get; set; }
-        public TransactionType TransType { get; set; }
-        public SystemUser ResponsibleUser { get; set; }
-        public decimal OriginalValue { get; set; }
-        public decimal ActualValue { get; set; }
-        public decimal Interest { get; set; }
-        public DateTime InsertionDate { get; set; }
-        public DateTime DueDate { get; set; }
-        public DateTime PaymentDate { get; set; }
-        public DateTime LastUpdate { get; set; }
-        public bool Completed { get; set; }
-        public bool Deleted { get; set; }
-        public Wallet SourceWallet { get; set; }
-        public Supplier Supplier { get; set; }
-        public Category Category { get; set; }
-
-        public override string ToString()
-        {
-            return $"Name: {Name} - Value: {OriginalValue}";
-        }
+        return $"Name: {Name} - ID: {Id}";
     }
+}
 
-    public class Category
+public class SubCategory
+{
+    public string Name { get; init; }
+    public int ParentId { get; init; }
+    public int Id { get; init; }
+
+    public override string ToString()
     {
-        public string Name { get; set; }
-        public int ID { get; set; }
-        public SubCategory SubCategory { get; set; }
-
-        public override string ToString()
-        {
-            return $"Name: {Name} - ID: {ID}";
-        }
+        return $"Name: {Name} - ParentID: {ParentId} - ID: {Id}";
     }
+}
 
-    public class SubCategory
+public class Supplier
+{
+    public string Name { get; init; }
+    public int Id { get; init; }
+
+    public override string ToString()
     {
-        public string Name { get; set; }
-        public int ParentID { get; set; }
-        public int ID { get; set; }
-
-        public override string ToString()
-        {
-            return $"Name: {Name} - ParentID: {ParentID} - ID: {ID}";
-        }
+        return $"Name: {Name} - ID: {Id}";
     }
+}
 
-    public class Supplier
+public class Wallet
+{
+    public string Name { get; init; }
+    public string Description { get; init; }
+    public DateTime CreationDate { get; init; }
+    public DateTime LastModificationDate { get; init; }
+    public decimal CurrentBalance { get; init; }
+
+    public override string ToString()
     {
-        public string Name { get; set; }
-        public int ID { get; set; }
-
-        public override string ToString()
-        {
-            return $"Name: {Name} - ID: {ID}";
-        }
+        return $"Wallet: {Name} - Balance: {CurrentBalance}";
     }
+}
 
-    public class Wallet
+public class SystemUser
+{
+    public string Name { get; init; }
+    public string Description { get; init; }
+    public int Id { get; init; }
+    public string FullName { get; init; }
+
+    public override string ToString()
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public DateTime CreationDate { get; set; }
-        public DateTime LastModificationDate { get; set; }
-        public decimal CurrentBalance { get; set; }
-
-        public override string ToString()
-        {
-            return $"Wallet: {Name} - Balance: {CurrentBalance}";
-        }
-    }
-
-    public class SystemUser
-    {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public int ID { get; set; }
-        public string FullName { get; set; }
-
-        public override string ToString()
-        {
-            return $"Name: {Name} - ID: {ID}";
-        }
+        return $"Name: {Name} - ID: {Id}";
     }
 }
