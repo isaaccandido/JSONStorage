@@ -348,3 +348,58 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+## ---------------------------------------------------------------------------
+## Beyond Visual Studio: other editors, OS cruft, and local secrets
+## ---------------------------------------------------------------------------
+
+# JetBrains Rider / IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# VS Code
+.vscode/*
+!.vscode/extensions.json
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# Editor swap/backup files
+*.swp
+*.swo
+*.orig
+*.bak
+
+# Local environment / secrets - never commit these
+.env
+.env.*
+!.env.example
+*.secrets.json
+secrets.json
+
+# Local override configs
+*.local.json
+appsettings.*.local.json
+
+# Rider/Resharper local run configurations that leak machine-specific paths
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/shelf/
