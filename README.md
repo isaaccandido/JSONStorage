@@ -4,7 +4,7 @@
 [![NuGet](https://img.shields.io/nuget/v/Isaac.FileStorage)](https://www.nuget.org/packages/Isaac.FileStorage/)
 [![NuGet Downloads](https://img.shields.io/nuget/dt/Isaac.FileStorage)](https://www.nuget.org/packages/Isaac.FileStorage/)
 
-A tiny, dependency-light key/value file storage library for .NET. Give it a key and any object, and it serialises the object to BSON (binary JSON) and writes it to a `.j2k` file named after the key — no schema, no database, no manual (de)serialisation code.
+A tiny, dependency-light key/value file storage library for .NET. Give it a key and any object, and it serializes the object to BSON (binary JSON) and writes it to a `.j2k` file named after the key: no schema, no database, no manual (de)serialization code.
 
 Targets `net10.0`.
 
@@ -60,6 +60,6 @@ All custom exceptions live in `Isaac.FileStorage.CustomExceptions`.
 
 ## Notes
 
-- Storage format is BSON, written to `.j2k` files (a name predating this README — think "JSON with a key", now binary).
+- Storage format is BSON, written to `.j2k` files.
 - As of 2.0, keys are validated so they can never resolve to a path outside the storage directory.
 - 2.0 dropped automatic migration of legacy pre-0.3 plain-JSON `.jk` files — if you're upgrading from one of those very old versions, convert your data before updating past 1.6.
