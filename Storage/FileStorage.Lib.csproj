@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <AssemblyName>Isaac.FileStorage.Lib</AssemblyName>
     <RootNamespace>Isaac.FileStorage.Lib</RootNamespace>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -33,8 +33,8 @@ This package allows for data storage using serialization. It utilises BSON (bina
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="Newtonsoft.Json.Bson" Version="1.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Newtonsoft.Json.Bson" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup>

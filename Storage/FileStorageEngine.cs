@@ -93,7 +93,7 @@ namespace Isaac.FileStorage
         {
             if (string.IsNullOrEmpty(key)) throw new EmptyKeyException();
 
-            var fileName = Path.Combine(DirectoryPath, $"{key}.j2k");
+            var fileName = getFileName(key);
 
             if (!File.Exists(fileName)) throw new KeyNotFoundException();
 
@@ -102,7 +102,13 @@ namespace Isaac.FileStorage
 
         private string getFileName(string key)
         {
-            return Path.Combine(DirectoryPath, $"{key}{J2KFileExtension}");
+            var fileName = Path.GetFullPath(Path.Combine(DirectoryPath, $"{key}{J2KFileExtension}"));
+            var basePath = Path.GetFullPath(DirectoryPath + Path.DirectorySeparatorChar);
+
+            if (!fileName.StartsWith(basePath, StringComparison.OrdinalIgnoreCase))
+                throw new InvalidKeyException();
+
+            return fileName;
         }
         private byte[] bsonGenerator<T>(T obj)
         {
