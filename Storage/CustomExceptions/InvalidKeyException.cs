@@ -1,6 +1,6 @@
 using System;
 
-namespace Isaac.FileStorage.Lib.CustomExceptions;
+namespace Isaac.FileStorage.CustomExceptions;
 
 public class InvalidKeyException(string message) : Exception
 {

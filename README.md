@@ -13,10 +13,8 @@ Targets `net10.0`.
 dotnet add package Isaac.FileStorage
 ```
 
-The NuGet package ID is `Isaac.FileStorage`, but the code lives under the `Isaac.FileStorage.Lib` namespace:
-
 ```csharp
-using Isaac.FileStorage.Lib;
+using Isaac.FileStorage;
 ```
 
 ## Quick start
@@ -48,7 +46,7 @@ Each entry is stored as its own `<key>.j2k` file inside the storage directory. K
 
 ## Exceptions
 
-All custom exceptions live in `Isaac.FileStorage.Lib.CustomExceptions`.
+All custom exceptions live in `Isaac.FileStorage.CustomExceptions`.
 
 | Exception | Thrown by | When |
 | --- | --- | --- |

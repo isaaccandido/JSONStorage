@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
 
-namespace Isaac.FileStorage.Lib.Helpers;
+namespace Isaac.FileStorage.Helpers;
 
 public static class Bson
 {

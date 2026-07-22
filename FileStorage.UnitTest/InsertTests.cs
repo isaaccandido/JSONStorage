@@ -1,5 +1,5 @@
 ﻿using System;
-using Isaac.FileStorage.Lib.CustomExceptions;
+using Isaac.FileStorage.CustomExceptions;
 using Xunit;
 
 namespace FileStorage.UnitTest;

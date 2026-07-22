@@ -1,4 +1,4 @@
-﻿namespace Isaac.FileStorage.Lib;
+﻿namespace Isaac.FileStorage;
 
 public static class Constants
 {

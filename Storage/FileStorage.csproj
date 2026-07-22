@@ -3,8 +3,8 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFramework>net10.0</TargetFramework>
-    <AssemblyName>Isaac.FileStorage.Lib</AssemblyName>
-    <RootNamespace>Isaac.FileStorage.Lib</RootNamespace>
+    <AssemblyName>Isaac.FileStorage</AssemblyName>
+    <RootNamespace>Isaac.FileStorage</RootNamespace>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageId>Isaac.FileStorage</PackageId>
@@ -17,13 +17,14 @@
     <PackageProjectUrl>https://github.com/a6576171/JSONStorage</PackageProjectUrl>
     <RepositoryUrl>https://github.com/a6576171/JSONStorage</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>Storage</PackageTags>
+    <PackageTags>filestorage;bson;keyvalue;serialization;storage</PackageTags>
     <NeutralLanguage />
-    <PackageReleaseNotes>2.0.0 is a breaking release: the root namespace moved from Isaac.FileStorage to Isaac.FileStorage.Lib (custom exceptions now live under Isaac.FileStorage.Lib.CustomExceptions, and KeyNotFoundException was renamed to StorageKeyNotFoundException to avoid colliding with System.Collections.Generic.KeyNotFoundException). Automatic migration of legacy pre-0.3 .jk files is no longer performed. A path-traversal vulnerability in key handling was fixed (keys can no longer escape the storage directory; invalid keys throw InvalidKeyException). Insert, Get, and Delete now consistently wrap unexpected failures in InvalidOperationException with the original exception preserved as InnerException. Retargeted to net10.0.</PackageReleaseNotes>
+    <PackageReleaseNotes>2.0.0 is a breaking release: custom exceptions moved to Isaac.FileStorage.CustomExceptions, and KeyNotFoundException was renamed to StorageKeyNotFoundException to avoid colliding with System.Collections.Generic.KeyNotFoundException. Automatic migration of legacy pre-0.3 .jk files is no longer performed. A path-traversal vulnerability in key handling was fixed (keys can no longer escape the storage directory; invalid keys throw InvalidKeyException). Insert, Get, and Delete now consistently wrap unexpected failures in InvalidOperationException with the original exception preserved as InnerException. Retargeted to net10.0.</PackageReleaseNotes>
     <Description>Simple file storage solution.
 
 This package allows for data storage using serialization. It utilises BSON (binary JSON) serialisation to record data in .j2k files. It used to be a joke, now it's two, and a binary one.</Description>
     <PackageIcon>filéManager.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
   </PropertyGroup>
 
@@ -43,6 +44,10 @@ This package allows for data storage using serialization. It utilises BSON (bina
       <PackagePath></PackagePath>
     </None>
     <None Include="filéManager.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

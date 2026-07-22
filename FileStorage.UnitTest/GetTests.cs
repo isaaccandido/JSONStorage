@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using Isaac.FileStorage.Lib.CustomExceptions;
+using Isaac.FileStorage.CustomExceptions;
 using Xunit;
 
 namespace FileStorage.UnitTest;

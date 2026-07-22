@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using Isaac.FileStorage.Lib.CustomExceptions;
+using Isaac.FileStorage.CustomExceptions;
 using Xunit;
 
 namespace FileStorage.UnitTest;
@@ -10,7 +10,6 @@ public class InvalidKeyTests
     [Theory]
     [InlineData("../evil")]
     [InlineData("../../evil")]
-    [InlineData("..\\evil")]
     [InlineData("subdir/../../evil")]
     public void Insert_PathTraversalKey_ThrowsInvalidKeyException(string key)
     {
@@ -18,6 +17,27 @@ public class InvalidKeyTests
 
         Assert.Throws<InvalidKeyException>(() =>
             block.Db.Insert(key, new TestClass { Code = "1", Name = "1" }));
+    }
+
+    [Fact]
+    public void Insert_BackslashTraversalKey_BehavesPerPlatform()
+    {
+        // Backslash is a path separator on Windows (a real traversal attempt) but just a
+        // literal character in a filename on POSIX systems (not a traversal at all).
+        using var block = new TestBlock();
+        const string key = "..\\evil";
+
+        if (OperatingSystem.IsWindows())
+        {
+            Assert.Throws<InvalidKeyException>(() =>
+                block.Db.Insert(key, new TestClass { Code = "1", Name = "1" }));
+        }
+        else
+        {
+            block.Db.Insert(key, new TestClass { Code = "1", Name = "1" });
+            var item = block.Db.Get<TestClass>(key);
+            Assert.Equal("1", item.Code);
+        }
     }
 
     [Theory]

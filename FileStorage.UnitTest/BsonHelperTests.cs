@@ -1,4 +1,4 @@
-using Isaac.FileStorage.Lib.Helpers;
+using Isaac.FileStorage.Helpers;
 using Xunit;
 
 namespace FileStorage.UnitTest;

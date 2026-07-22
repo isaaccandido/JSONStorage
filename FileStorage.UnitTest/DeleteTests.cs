@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using Xunit;
-using Isaac.FileStorage.Lib;
+using Isaac.FileStorage;
 
 namespace FileStorage.UnitTest;
 
@@ -52,6 +52,10 @@ public class DeleteTests
     [Fact]
     public void DeleteKey_FileLocked_ThrowsInvalidOperationExceptionWithInnerException()
     {
+        // Share-mode locks that block deletion of an open file are a Windows-only concept;
+        // POSIX systems (Linux/macOS) allow unlinking a file that's still open elsewhere.
+        if (!OperatingSystem.IsWindows()) return;
+
         using var block = new TestBlock();
 
         block.Db.Insert("locked", new TestClass { Code = "1", Name = "1" });

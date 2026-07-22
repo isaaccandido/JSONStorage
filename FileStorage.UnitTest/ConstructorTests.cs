@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using Isaac.FileStorage.Lib;
+using Isaac.FileStorage;
 using Xunit;
 
 namespace FileStorage.UnitTest;

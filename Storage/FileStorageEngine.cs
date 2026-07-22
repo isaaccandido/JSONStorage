@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Isaac.FileStorage.Lib.CustomExceptions;
-using Isaac.FileStorage.Lib.Helpers;
+using Isaac.FileStorage.CustomExceptions;
+using Isaac.FileStorage.Helpers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
 
-namespace Isaac.FileStorage.Lib;
+namespace Isaac.FileStorage;
 
 public class FileStorageEngine
 {
