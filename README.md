@@ -1,7 +1,8 @@
 # JSONStorage
 
 [![.NET](https://github.com/a6576171/JSONStorage/workflows/.NET/badge.svg)](https://github.com/a6576171/JSONStorage)
-[![NuGet](https://buildstats.info/nuget/Isaac.FileStorage)](https://www.nuget.org/packages/Isaac.FileStorage/)
+[![NuGet](https://img.shields.io/nuget/v/Isaac.FileStorage)](https://www.nuget.org/packages/Isaac.FileStorage/)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/Isaac.FileStorage)](https://www.nuget.org/packages/Isaac.FileStorage/)
 
 A tiny, dependency-light key/value file storage library for .NET. Give it a key and any object, and it serialises the object to BSON (binary JSON) and writes it to a `.j2k` file named after the key — no schema, no database, no manual (de)serialisation code.
 
