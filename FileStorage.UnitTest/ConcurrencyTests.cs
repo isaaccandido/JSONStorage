@@ -224,7 +224,7 @@ public class ConcurrencyTests
     public async Task InsertAsync_CancelledException_PreservesOriginalCancellationToken()
     {
         // The cleanup rework must not swap the propagated exception for a generic one - it should
-        // still be recognizably tied to the token that was actually cancelled.
+        // still be recognizably tied to the token that was actually canceled.
         using var block = new TestBlock();
 
         using var cts = new CancellationTokenSource();

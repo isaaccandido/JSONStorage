@@ -37,7 +37,19 @@ internal static class KeyLock
 
     private static readonly ConcurrentDictionary<string, RefCountedSemaphore> InProcessLocks = new();
 
-    public static IDisposable Acquire(string fileName, TimeSpan timeout)
+    public static LockHandle Acquire(string fileName, TimeSpan timeout) =>
+        Acquire(fileName, timeout, createIfMissing: true);
+
+    /// <summary>
+    /// Like Acquire, but for a lock file that must already exist: throws FileNotFoundException
+    /// instead of transparently creating one. Used by PruneOrphanedFiles's lock-file cleanup,
+    /// where silently recreating a just-deleted file would let a racing prune call re-claim and
+    /// re-count it - see the remarks on PruneOrphanedFiles for the full reasoning.
+    /// </summary>
+    private static LockHandle AcquireExisting(string fileName, TimeSpan timeout) =>
+        Acquire(fileName, timeout, createIfMissing: false);
+
+    private static LockHandle Acquire(string fileName, TimeSpan timeout, bool createIfMissing)
     {
         var deadline = DateTime.UtcNow + timeout;
         var entry = Rent(fileName);
@@ -62,7 +74,7 @@ internal static class KeyLock
 
         try
         {
-            var lockStream = AcquireFileLock(fileName, deadline);
+            var lockStream = AcquireFileLock(fileName, deadline, createIfMissing);
             return new LockHandle(fileName, entry, lockStream);
         }
         catch
@@ -73,7 +85,7 @@ internal static class KeyLock
         }
     }
 
-    public static async Task<IDisposable> AcquireAsync(string fileName, TimeSpan timeout, CancellationToken cancellationToken)
+    public static async Task<LockHandle> AcquireAsync(string fileName, TimeSpan timeout, CancellationToken cancellationToken)
     {
         var deadline = DateTime.UtcNow + timeout;
         var entry = Rent(fileName);
@@ -155,14 +167,20 @@ internal static class KeyLock
     /// manages: Acquire's FileMode.OpenOrCreate would transparently recreate a lock file that a
     /// racing prune call just deleted, so two concurrent prune calls could each legitimately (but
     /// wrongly) conclude they removed a real orphan - the second one's "proof" would really just
-    /// be the file it recreated moments earlier as a side effect of checking. So this loop opens
-    /// each candidate directly with FileMode.Open (never Create) instead of going through Acquire:
-    /// if the file's already gone by the time this runs - deleted by a racing prune call - this
-    /// throws and the attempt is skipped rather than silently recreating and re-claiming it. A
-    /// successful open still proves exclusive access the same way Acquire's file lock does (no
-    /// other Acquire call can be mid-use of this exact key while this holds it), so the delete
-    /// that follows is exactly as safe, including on POSIX systems where unlink() would otherwise
-    /// ignore any lock another handle holds.
+    /// be the file it recreated moments earlier as a side effect of checking. AcquireExisting
+    /// closes that gap by using FileMode.Open (never Create): if the file's already gone by the
+    /// time this runs - deleted by a racing prune call - it throws and the attempt is skipped
+    /// rather than silently recreating and re-claiming it.
+    ///
+    /// This still goes through the same in-process SemaphoreSlim as every other Acquire call,
+    /// not just the file-level FileShare.Delete check - that's not optional. An earlier version
+    /// of this method opened the FileStream directly, skipping the semaphore, on the reasoning
+    /// that FileShare.Delete alone should already provide equivalent exclusivity; that held up
+    /// under heavy same-process contention on Windows but not reliably on Linux (confirmed via
+    /// CI: concurrent prune calls still occasionally each won a claim on the same file). Routing
+    /// through the semaphore first - the same layer every other concurrent-access guarantee in
+    /// this codebase actually rests on - removes the dependency on that platform-specific edge
+    /// entirely, rather than needing to reason about exactly how reliable it is.
     /// </remarks>
     /// <returns>How many orphaned lock files and temp files were removed.</returns>
     public static (int LockFilesRemoved, int TempFilesRemoved) PruneOrphanedFiles(
@@ -178,18 +196,19 @@ internal static class KeyLock
 
             try
             {
-                using var handle = new FileStream(lockFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.Delete);
-
-                if (!File.Exists(dataFilePath))
+                using (AcquireExisting(dataFilePath, PruneAcquireTimeout))
                 {
-                    File.Delete(lockFilePath);
-                    lockFilesRemoved++;
+                    if (!File.Exists(dataFilePath))
+                    {
+                        File.Delete(lockFilePath);
+                        lockFilesRemoved++;
+                    }
                 }
             }
             catch
             {
                 // already gone (claimed by a racing prune call), or actively in use by a real
-                // operation right now - leave it for a future attempt either way
+                // operation right now (lock timed out) - leave it for a future attempt either way
             }
         }
 
@@ -269,16 +288,24 @@ internal static class KeyLock
     // it's still open. That's what lets TryDeleteLockFile run from inside the critical section
     // that's already proven the file is orphaned, instead of needing to release first and reopen
     // a window for a concurrent acquirer to be displaced by that cleanup.
-    private static FileStream AcquireFileLock(string fileName, DateTime deadline)
+    private static FileStream AcquireFileLock(string fileName, DateTime deadline, bool createIfMissing = true)
     {
         var lockFilePath = fileName + LockFileSuffix;
         var delay = InitialRetryDelayMs;
+        var mode = createIfMissing ? FileMode.OpenOrCreate : FileMode.Open;
 
         while (true)
         {
             try
             {
-                return new FileStream(lockFilePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Delete);
+                return new FileStream(lockFilePath, mode, FileAccess.ReadWrite, FileShare.Delete);
+            }
+            catch (FileNotFoundException) when (!createIfMissing)
+            {
+                // The caller asked not to create one, and there's genuinely nothing there right
+                // now (as opposed to something else holding it) - not worth retrying until the
+                // deadline for this, unlike a real contention IOException below.
+                throw;
             }
             catch (IOException)
             {
@@ -313,13 +340,13 @@ internal static class KeyLock
         }
     }
 
-    private sealed class RefCountedSemaphore
+    internal sealed class RefCountedSemaphore
     {
         public readonly SemaphoreSlim Semaphore = new(1, 1);
         public int RefCount;
     }
 
-    private sealed class LockHandle(string fileName, RefCountedSemaphore entry, FileStream lockStream) : IDisposable
+    internal sealed class LockHandle(string fileName, RefCountedSemaphore entry, FileStream lockStream) : IDisposable
     {
         private int _disposed;
 
