@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.IO;
 using Isaac.FileStorage.CustomExceptions;
 using Xunit;
 
@@ -9,16 +10,16 @@ public class InsertTests
     [Theory]
     [InlineData("bla")]
     [InlineData("batata")]
-    public static void Insert_One(string key)
+    public void Insert_One(string key)
     {
         using var block = new TestBlock();
 
-        block.Db.Insert(key, new TestClass()
+        block.Db.Insert(key, new TestClass
         {
             Code = "001",
             Name = "001"
         });
-            
+
         var item = block.Db.Get<TestClass>(key);
 
         Assert.NotNull(item);
@@ -27,7 +28,7 @@ public class InsertTests
     }
 
     [Fact]
-    public static void Insert_OverwritesExistingKey()
+    public void Insert_OverwritesExistingKey()
     {
         using var block = new TestBlock();
 
@@ -41,7 +42,7 @@ public class InsertTests
     }
 
     [Fact]
-    public static void Insert_UnserializableObject_ThrowsInvalidOperationExceptionWithInnerException()
+    public void Insert_UnserializableObject_ThrowsInvalidOperationExceptionWithInnerException()
     {
         using var block = new TestBlock();
 
@@ -54,13 +55,92 @@ public class InsertTests
     }
 
     [Fact]
-    public static void Insert_EmptyKey()
+    public void Insert_FailedWrite_LeavesExistingDataIntact()
+    {
+        // Insert writes to a temp file and atomically renames it over the destination, so a
+        // failed write (here: unserializable object) must never touch - let alone corrupt or
+        // truncate - the key's existing, still-valid data.
+        using var block = new TestBlock();
+
+        block.Db.Insert("atomic-key", new TestClass { Code = "original", Name = "original" });
+
+        var circular = new SelfReferencingClass();
+        circular.Self = circular;
+
+        Assert.Throws<InvalidOperationException>(() => block.Db.Insert("atomic-key", circular));
+
+        var item = block.Db.Get<TestClass>("atomic-key");
+        Assert.Equal("original", item.Code);
+        Assert.Equal("original", item.Name);
+    }
+
+    [Fact]
+    public void Insert_DoesNotLeaveTempFileBehindOnSuccess()
+    {
+        using var block = new TestBlock();
+
+        block.Db.Insert("clean-key", new TestClass { Code = "1", Name = "1" });
+
+        Assert.False(File.Exists(Path.Combine(block.Db.DirectoryPath, "clean-key.j2k.tmp")));
+    }
+
+    [Fact]
+    public void Insert_FailedWrite_CleansUpTempFile()
+    {
+        using var block = new TestBlock();
+
+        var circular = new SelfReferencingClass();
+        circular.Self = circular;
+
+        Assert.Throws<InvalidOperationException>(() => block.Db.Insert("failed-key", circular));
+
+        Assert.False(File.Exists(Path.Combine(block.Db.DirectoryPath, "failed-key.j2k.tmp")));
+    }
+
+    [Fact]
+    public void Insert_FailedWriteOnBrandNewKey_LeavesNoLockFileBehind()
+    {
+        // Acquiring the lock to attempt the write creates the lock file as a side effect. If the
+        // insert fails and the key still has no real data (never succeeded before, or now),
+        // nothing should be left behind - not even that lock file.
+        using var block = new TestBlock();
+
+        var circular = new SelfReferencingClass();
+        circular.Self = circular;
+
+        Assert.Throws<InvalidOperationException>(() => block.Db.Insert("brand-new-no-lock", circular));
+
+        Assert.Empty(Directory.GetFiles(block.Db.DirectoryPath));
+    }
+
+    [Fact]
+    public void Insert_FailedWriteOnKeyWithExistingData_StillLeavesLockFileForReuse()
+    {
+        // Unlike a brand-new key, a key that already has real data from an earlier successful
+        // insert is a real key - its lock file must survive a later failed insert attempt.
+        using var block = new TestBlock();
+
+        block.Db.Insert("existing-keeps-lock", new TestClass { Code = "original", Name = "original" });
+
+        var circular = new SelfReferencingClass();
+        circular.Self = circular;
+
+        Assert.Throws<InvalidOperationException>(() => block.Db.Insert("existing-keeps-lock", circular));
+
+        Assert.True(File.Exists(Path.Combine(block.Db.DirectoryPath, "existing-keeps-lock.j2k.lock")));
+
+        var item = block.Db.Get<TestClass>("existing-keeps-lock");
+        Assert.Equal("original", item.Code);
+    }
+
+    [Fact]
+    public void Insert_EmptyKey()
     {
         using var block = new TestBlock();
 
         Assert.Throws<EmptyKeyException>(() =>
         {
-            block.Db.Insert(string.Empty, new TestClass()
+            block.Db.Insert(string.Empty, new TestClass
             {
                 Code = "001",
                 Name = "001"
@@ -68,13 +148,13 @@ public class InsertTests
         });
     }
     [Fact]
-    public static void Insert_NullKey()
+    public void Insert_NullKey()
     {
         using var block = new TestBlock();
 
         Assert.Throws<EmptyKeyException>(() =>
         {
-            block.Db.Insert(null, new TestClass()
+            block.Db.Insert(null!, new TestClass
             {
                 Code = "001",
                 Name = "001"
@@ -82,22 +162,22 @@ public class InsertTests
         });
     }
     [Fact]
-    public static void Insert_DotDot()
+    public void Insert_DotDot()
     {
         using var block = new TestBlock();
 
-        block.Db.Insert(".", new TestClass()
+        block.Db.Insert(".", new TestClass
         {
             Code = "001",
             Name = "001"
         });
     }
     [Fact]
-    public static void Insert_InvalidPathTilde()
+    public void Insert_InvalidPathTilde()
     {
         using var block = new TestBlock();
 
-        block.Db.Insert("potato~~", new TestClass()
+        block.Db.Insert("potato~~", new TestClass
         {
             Code = "001",
             Name = "001"

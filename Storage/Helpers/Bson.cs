@@ -6,7 +6,7 @@ namespace Isaac.FileStorage.Helpers;
 
 public static class Bson
 {
-    public static byte[] Generate<T>(T obj)
+    public static byte[] Generate<T>(T? obj)
     {
         if (obj is null) return [];
 

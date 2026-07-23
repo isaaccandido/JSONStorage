@@ -1,12 +1,14 @@
-﻿using System;
+using System;
 
 namespace Isaac.FileStorage.CustomExceptions;
 
-public class EmptyKeyException(string message) : Exception
+public class EmptyKeyException(string? message) : Exception
 {
-    public override string Message { get; } = message;
+    private const string DefaultMessage = "Key cannot be empty.";
 
-    public EmptyKeyException() : this("Key cannot be empty.")
+    public override string Message { get; } = message ?? DefaultMessage;
+
+    public EmptyKeyException() : this(DefaultMessage)
     {
     }
 }

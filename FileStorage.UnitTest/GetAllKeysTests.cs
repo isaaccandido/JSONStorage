@@ -14,7 +14,7 @@ public class GetAllKeysTests
     public void GetAllKeys_AirportBug(string input)
     {
         using var block = new TestBlock();
-        var test = new TestClass()
+        var test = new TestClass
         {
             Name = "John",
             Code = "C001"
@@ -36,14 +36,14 @@ public class GetAllKeysTests
     {
         using var block = new TestBlock();
 
-        List<TestClass> lstTests = new();
+        List<TestClass> lstTests = [];
 
-        for (int i = 0; i < amount; i++)
+        for (var i = 0; i < amount; i++)
         {
             var strCode = i.ToString("000");
             var thisName = $"{baseName},.,.,.;{i}";
 
-            lstTests.Add(new TestClass()
+            lstTests.Add(new TestClass
             {
                 Code = strCode,
                 Name = thisName

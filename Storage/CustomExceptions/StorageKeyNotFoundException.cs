@@ -2,11 +2,13 @@ using System;
 
 namespace Isaac.FileStorage.CustomExceptions;
 
-public class StorageKeyNotFoundException(string message) : Exception
+public class StorageKeyNotFoundException(string? message) : Exception
 {
-    public override string Message { get; } = message;
+    private const string DefaultMessage = "Key was not found.";
 
-    public StorageKeyNotFoundException() : this("Key was not found.")
+    public override string Message { get; } = message ?? DefaultMessage;
+
+    public StorageKeyNotFoundException() : this(DefaultMessage)
     {
     }
 }

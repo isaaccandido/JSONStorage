@@ -2,13 +2,14 @@ using System;
 
 namespace Isaac.FileStorage.CustomExceptions;
 
-public class InvalidKeyException(string message) : Exception
+public class InvalidKeyException(string? message) : Exception
 {
-    public override string Message { get; } = message;
+    private const string DefaultMessage =
+        "Key must not contain path traversal characters or resolve outside the storage directory.";
 
-    public InvalidKeyException() : this(
-        "Key must not contain path traversal characters or resolve outside the storage directory."
-    )
+    public override string Message { get; } = message ?? DefaultMessage;
+
+    public InvalidKeyException() : this(DefaultMessage)
     {
     }
 }

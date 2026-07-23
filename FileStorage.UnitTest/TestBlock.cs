@@ -18,5 +18,6 @@ public class TestBlock : IDisposable
     public void Dispose()
     {
         Directory.Delete(Db.DirectoryPath, true);
+        GC.SuppressFinalize(this);
     }
 }

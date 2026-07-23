@@ -5,7 +5,7 @@ namespace FileStorage.UnitTest;
 public class BsonGeneratorTests
 {
     [Fact]
-    public static void bsonGenerator_NullValue()
+    public void bsonGenerator_NullValue()
     {
         using var block = new TestBlock();
         block.Db.Insert<Transaction>("1234", null);
